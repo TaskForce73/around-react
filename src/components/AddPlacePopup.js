@@ -5,6 +5,7 @@ function AddPlacePopup(props) {
     <PopupWithForm
       name={`placeForm`}
       title={`New place`}
+      button={`Save`}
       isOpen={props.isOpen}
       onClose={props.onClose}
     >

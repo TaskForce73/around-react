@@ -5,6 +5,7 @@ function EditAvatarPopup(props) {
     <PopupWithForm
       name={`avatarForm`}
       title={`Change profile picture`}
+      button={`Save`}
       isOpen={props.isOpen}
       onClose={props.onClose}
     >

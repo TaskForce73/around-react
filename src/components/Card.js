@@ -1,13 +1,14 @@
-function Card(props) {
-  function handleClick() {
-    props.onCardClick(props.card);
+function Card({card, link, name, likes, onCardClick}) {
+  
+    function handleClick() {
+    onCardClick(card);
   }
   return (
     <>
       <li className="element">
         <div
-          style={{ backgroundImage: `url(${props.card.link})` }}
-          aria-label={`Photo of ${props.card.name}`}
+          style={{ backgroundImage: `url(${link})` }}
+          aria-label={`Photo of ${name}`}
           onClick={handleClick}
           className="element__picture"
         />
@@ -17,7 +18,7 @@ function Card(props) {
           className="element__bin"
         ></button>
         <div className="element__title">
-          <h2 className="element__header">{props.card.name}</h2>
+          <h2 className="element__header">{name}</h2>
           <div className="element__like-container">
             <button
               aria-label="like"
@@ -25,7 +26,7 @@ function Card(props) {
               className="element__button"
             ></button>
             <span className="element__button-counter">
-              {props.card.likes.length}
+            {likes.length}
             </span>
           </div>
         </div>

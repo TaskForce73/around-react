@@ -34,12 +34,17 @@ function Main(props) {
   return (
     <main className="page">
       <section className="profile">
-        <div onClick={props.onEditAvatarClick} className="profile__overlay"></div>
         <div
-          style={{ backgroundImage: `url(${userAvatar})` }}
-          aria-label="Avatar"
-          className="profile__image"
+          onClick={props.onEditAvatarClick}
+          className="profile__overlay"
         ></div>
+        {userAvatar && (
+          <div
+            style={{ backgroundImage: `url(${userAvatar})` }}
+            aria-label="Avatar"
+            className="profile__image"
+          ></div>
+        )}
         <div className="profile__info">
           <h1 className="profile__author">{userName}</h1>
           <button
@@ -61,8 +66,7 @@ function Main(props) {
       <section className="elements">
         <ul className="elements__list">
           {cards.map((data) => (
-            <Card key={data._id} card={data}
-            onCardClick={props.onCardClick}/>
+            <Card name={data.name} link={data.link} likes={data.likes} key={data._id} card={data} onCardClick={props.onCardClick}/>
           ))}
         </ul>
       </section>
