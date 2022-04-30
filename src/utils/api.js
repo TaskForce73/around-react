@@ -49,18 +49,21 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  dislikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then(this._checkResponse);
+  changeLikeCardStatus(cardId, like) {
+    if (like) {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: this._headers,
+        body: JSON.stringify({
+            like,
+          }),
+      }).then(this._checkResponse)
+    } else {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: "DELETE",
+        headers: this._headers,
+      }).then(this._checkResponse)
+    }
   }
 
   changeAvatar(avatar) {

@@ -1,6 +1,20 @@
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
+  const nameRef = React.useRef("");
+  const linkRef = React.useRef("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onAddPlaceSubmit({
+      name: nameRef.current.value,
+      link: linkRef.current.value,
+    });
+    nameRef.current.value = "";
+    linkRef.current.value = "";
+  }
+
   return (
     <PopupWithForm
       name={`placeForm`}
@@ -8,9 +22,11 @@ function AddPlacePopup(props) {
       buttonText={`Save`}
       isOpen={props.isOpen}
       onClose={props.onClose}
+      onSubmit={handleSubmit}
     >
       <input
         className="popup__input popup__input-description"
+        ref={nameRef}
         id="description-input"
         type="text"
         name="description"
@@ -22,6 +38,7 @@ function AddPlacePopup(props) {
       <span className="popup__error description-input-error"></span>
       <input
         className="popup__input popup__input-link"
+        ref={linkRef}
         id="link-input"
         type="url"
         name="link"
