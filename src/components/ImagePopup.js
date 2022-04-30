@@ -1,9 +1,8 @@
 function ImagePopup(props) {
+  
   return (
     <div
-      className={`popup popup_type_imageForm ${
-        props.isOpen && "popup_open" 
-      }`}
+      className={`popup popup_type_imageForm ${props.isOpen && "popup_open"}`}
     >
       <div className="popup__wrapper">
         <button

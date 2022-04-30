@@ -17,9 +17,11 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [removeCard, setRemoveCard] = React.useState({});
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -33,11 +35,17 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleDeleteClick(card) {
+    setIsConfirmPopupOpen(true);
+    setRemoveCard(card);
+  }
+
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsConfirmPopupOpen(false);
     setSelectedCard({});
   }
 
@@ -74,8 +82,8 @@ function App() {
   function handleUpdateAvatar(avatar) {
     api
       .changeAvatar(avatar)
-      .then(() => {
-        setCurrentUser(avatar);
+      .then((data) => {
+        setCurrentUser(data);
       })
       .then(() => {
         setIsEditAvatarPopupOpen(false);
@@ -105,10 +113,12 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        const removedCard = cards.filter(
+        setCards(cards.filter(
           (currentCard) => currentCard._id !== card._id
-        );
-        setCards(removedCard);
+        ));
+      })
+      .then(() => {
+        setIsConfirmPopupOpen(false);
       })
       .catch((err) => {
         console.log(err);
@@ -126,11 +136,11 @@ function App() {
       });
   }, []);
 
-  function handleAddPlaceSubmit({name, link}) {
+  function handleAddPlaceSubmit({ name, link }) {
     api
-      .createCard({name, link})
+      .createCard({ name, link })
       .then((newCard) => {
-        setCards([newCard, ...cards]); 
+        setCards([newCard, ...cards]);
       })
       .then(() => {
         setIsAddPlacePopupOpen(false);
@@ -149,12 +159,16 @@ function App() {
           onEditProfileClick={handleEditProfileClick}
           onEditAvatarClick={handleEditAvatarClick}
           onCardClick={handleCardClick}
-          onCardDelete={handleCardDelete}
+          onCardDelete={handleDeleteClick}
           onCardLike={handleCardLike}
           cards={cards}
         />
         <Footer />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlaceSubmit={handleAddPlaceSubmit} />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlaceSubmit={handleAddPlaceSubmit}
+        />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -165,7 +179,12 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
         />
-        <ConfirmPopup />
+        <ConfirmPopup
+          isOpen={isConfirmPopupOpen}
+          onClose={closeAllPopups}
+          onCardDelete={handleCardDelete}
+          card={removeCard}
+        />
         <ImagePopup
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}

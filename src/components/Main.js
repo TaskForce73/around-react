@@ -1,16 +1,21 @@
 import React from "react";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-function Main({onEditAvatarClick, onEditProfileClick, onAddPlaceClick, cards, onCardClick, onCardLike, onCardDelete}) {
+function Main({
+  onEditAvatarClick,
+  onEditProfileClick,
+  onAddPlaceClick,
+  cards,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="page">
       <section className="profile">
-        <div
-          onClick={onEditAvatarClick}
-          className="profile__overlay"
-        ></div>
+        <div onClick={onEditAvatarClick} className="profile__overlay"></div>
         {currentUser.avatar && (
           <div
             style={{ backgroundImage: `url(${currentUser.avatar})` }}
@@ -39,7 +44,16 @@ function Main({onEditAvatarClick, onEditProfileClick, onAddPlaceClick, cards, on
       <section className="elements">
         <ul className="elements__list">
           {cards.map((data) => (
-            <Card name={data.name} link={data.link} likes={data.likes} key={data._id} card={data} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete}/>
+            <Card
+              name={data.name}
+              link={data.link}
+              likes={data.likes}
+              key={data._id}
+              card={data}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
           ))}
         </ul>
       </section>
