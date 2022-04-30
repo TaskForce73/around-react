@@ -1,5 +1,4 @@
 function ImagePopup(props) {
-  
   return (
     <div
       className={`popup popup_type_imageForm ${props.isOpen && "popup_open"}`}

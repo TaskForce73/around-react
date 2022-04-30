@@ -2,7 +2,6 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function ConfirmPopup(props) {
-  
   function handleSubmit(e) {
     e.preventDefault();
     props.onCardDelete(props.card);

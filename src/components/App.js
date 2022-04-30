@@ -22,16 +22,20 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [removeCard, setRemoveCard] = React.useState({});
+  const [changePopupButtonText, setChangePopupButtonText] = React.useState("");
 
   function handleEditProfileClick() {
+    setChangePopupButtonText("Save");
     setIsEditProfilePopupOpen(true);
   }
 
   function handleEditAvatarClick() {
+    setChangePopupButtonText("Save");
     setIsEditAvatarPopupOpen(true);
   }
 
   function handleAddPlaceClick() {
+    setChangePopupButtonText("Save");
     setIsAddPlacePopupOpen(true);
   }
 
@@ -66,6 +70,7 @@ function App() {
   }, []);
 
   function handleUpdateUser(data) {
+    setChangePopupButtonText("Saving...");
     api
       .editProfile(data)
       .then((data) => {
@@ -80,6 +85,7 @@ function App() {
   }
 
   function handleUpdateAvatar(avatar) {
+    setChangePopupButtonText("Saving...");
     api
       .changeAvatar(avatar)
       .then((data) => {
@@ -113,9 +119,7 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        setCards(cards.filter(
-          (currentCard) => currentCard._id !== card._id
-        ));
+        setCards(cards.filter((currentCard) => currentCard._id !== card._id));
       })
       .then(() => {
         setIsConfirmPopupOpen(false);
@@ -137,6 +141,7 @@ function App() {
   }, []);
 
   function handleAddPlaceSubmit({ name, link }) {
+    setChangePopupButtonText("Saving...");
     api
       .createCard({ name, link })
       .then((newCard) => {
@@ -168,16 +173,19 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+          buttonText={changePopupButtonText}
         />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          buttonText={changePopupButtonText}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          buttonText={changePopupButtonText}
         />
         <ConfirmPopup
           isOpen={isConfirmPopupOpen}
