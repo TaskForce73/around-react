@@ -9,9 +9,9 @@ function ConfirmPopup(props) {
 
   return (
     <PopupWithForm
-      name={`confirmForm`}
-      title={`Are you shure?`}
-      buttonText={`Yes`}
+      name="confirmForm"
+      title="Are you shure?"
+      buttonText="Yes"
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}

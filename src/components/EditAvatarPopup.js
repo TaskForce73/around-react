@@ -12,8 +12,8 @@ function EditAvatarPopup(props) {
 
   return (
     <PopupWithForm
-      name={`avatarForm`}
-      title={`Change profile picture`}
+      name="avatarForm"
+      title="Change profile picture"
       buttonText={props.buttonText}
       isOpen={props.isOpen}
       onClose={props.onClose}
