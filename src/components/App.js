@@ -64,8 +64,8 @@ function App() {
       .then((res) => {
         setCurrentUser(res);
       })
-      .catch((res) => {
-        console.log(`Error! + ${res.statusText}`);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -135,8 +135,8 @@ function App() {
       .then((userData) => {
         setCards(userData);
       })
-      .catch((res) => {
-        console.log(`Error! + ${res.statusText}`);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
